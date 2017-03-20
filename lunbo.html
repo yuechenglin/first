@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="utf-8"/>
+	<style>
+		*{margin:0;padding:0}
+		#container{width:630px;height:315px;overflow:hidden;
+			position:relative;
+		}
+		div{position:absolute;left:0;right:0;}
+	</style>
+	
+	<script>
+	function changezIndex(_index){
+		var _container=document.getElementById('container');
+		for(var i=_index-1,n=5;true;i--,n--){
+			if(i<0){
+				i=5;
+			}
+			_container.children[i].style.zIndex=n;
+			if(i==_index){
+				_container.children[_index].style.opacity=1;
+				break;
+			}
+		}
+	}
+	function imgDisappear(){
+		var _container=document.getElementById('container'); 
+		var _timer=0;
+		var _index=_container.children.length-1;
+		var _opacity=1;
+		(function start(){
+			window.clearTimeout(_timer);
+			_opacity-=0.1;
+			if(_opacity>0.1){
+				_container.children[_index].style.opacity=_opacity;
+				_timer=window.setTimeout(start,80);
+			}else{
+				_container.children[_index].style.opacity=0;
+				_opacity=1;
+				changezIndex(_index);
+				_index--;
+				if(_index<0){
+					_index=_container.children.length-1;
+				}
+				_timer=window.setTimeout(start,1000);
+			}
+		})();
+	}
+	window.onload=function(){
+		imgDisappear();
+	}
+	</script>
+	</head>
+<body>
+	<div id="container">
+		<div><img alt="图片1" title="1" src="images/c01.jpg"/></div>
+		<div><img alt="图片2" title="2" src="images/c02.jpg"/></div>
+		<div><img alt="图片3" title="3" src="images/c03.jpg"/></div>
+		<div><img alt="图片4" title="4" src="images/c04.jpg"/></div>
+		<div><img alt="图片5" title="5" src="images/c05.jpg"/></div>
+		<div><img alt="图片6" title="6" src="images/c06.jpg"/></div>
+	</div>
+</body>
+</html>
